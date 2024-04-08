@@ -1,0 +1,106 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(dept());
+}
+
+class dept extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Page3',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  String dropdownvalue = 'Department';
+
+  var items = ['Department', 'OP1', 'OP2', 'Endoscopy', 'Ward/ICU', 'Prof Clinic'];
+  late Timer _timer;
+  late String currentTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        currentTime = _getCurrentDateTime();
+      });
+    });
+    currentTime = _getCurrentDateTime();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("EmpId:"),
+            Text(
+              currentTime,
+              style: TextStyle(fontSize: 20 ),
+            ),
+          ],
+        ),
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Choose Department",style: TextStyle(fontSize: 30),),
+              DropdownButton<String>(
+                value: dropdownvalue,
+                icon: Icon(Icons.keyboard_arrow_down),
+                items: items.map((String item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      dropdownvalue = newValue;
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _getCurrentDateTime() {
+    DateTime now = DateTime.now();
+    String formattedDateTime =
+        "${_formatDateTimeComponent(now.hour)}:${_formatDateTimeComponent(now.minute)} - ${_formatDateTimeComponent(now.day)}/${_formatDateTimeComponent(now.month)}/${now.year}";
+    return formattedDateTime;
+  }
+
+  String _formatDateTimeComponent(int component) {
+    return component < 10 ? '0$component' : '$component';
+  }
