@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import url_launcher package
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My App'),
+          backgroundColor: Colors.blue,
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // Handle search action
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Handle menu action
+              },
+            ),
+          ],
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () async {
+              final maskedNumber = _maskPhoneNumber("7708247469");
+              final Uri url = Uri(
+                scheme: 'tel',
+                path: maskedNumber,
+              );
+              launch(
+                  url.toString()); // Launch the phone call using url_launcher
+            },
+            child: const Text('Call'), // Updated button text
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+            BottomNavigationBarItem(
+                label: 'Setting', icon: Icon(Icons.settings)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Function to mask the phone number
+  String _maskPhoneNumber(String phoneNumber) {
+    if (phoneNumber.length == 10) {
+      return phoneNumber.replaceRange(3, 7, 'XXXX');
+    } else {
+      // If the phone number is not in the expected format, return as is
+      return phoneNumber;
+    }
+  }
+}
