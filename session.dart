@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:math' as math;
+import 'package:ganesh/session.dart'; // Import the second Dart file
 
 void main() {
   runApp(MyApp());
@@ -99,108 +101,119 @@ class _MyHomePageState extends State<MyHomePage> {
           child: GridView(
             children: [
               InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: context=>Home()))
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dept()),
+                  );
                 },
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.red,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "DOCTOR",
-                          style: TextStyle(color: Colors.white, fontSize: 30),
-                        )
-                      ],
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.red,
                   ),
-
-                  InkWell(
-                    onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: context=>Home()))
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "DOCTOR",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dept()),
+                  );
                 },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.yellow,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "NURSE",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          )
-                        ],
-                      ),
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.yellow,
                   ),
-                  InkWell(
-                     onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: context=>Home()))
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "NURSE",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dept()),
+                  );
                 },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "ALIED",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          )
-                        ],
-                      ),
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey,
                   ),
-                  InkWell(
-                     onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: context=>Home()))
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "ALLIED",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dept()),
+                  );
                 },
-
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.purple,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "EMERGENCY",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          )
-                        ],
-                      ),
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.purple,
                   ),
-                  InkWell(
-                     onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: context=>Home()))
-                }, 
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "SWITCH BOARD",
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          )
-                        ],
-                      ),
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "EMERGENCY",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    ],
                   ),
-                ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dept()),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "SWITCH BOARD",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
