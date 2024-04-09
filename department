@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ganesh/calltable.dart';
 
 void main() {
-  runApp(dept());
+  runApp(Dept());
 }
 
-class dept extends StatelessWidget {
+class Dept extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String dropdownvalue = 'Department';
+  String dropdownValue = 'Department';
 
   var items = ['Department', 'OP1', 'OP2', 'Endoscopy', 'Ward/ICU', 'Prof Clinic'];
   late Timer _timer;
@@ -59,20 +60,27 @@ class _MyHomePageState extends State<MyHomePage> {
             Text("EmpId:"),
             Text(
               currentTime,
-              style: TextStyle(fontSize: 20 ),
+              style: TextStyle(fontSize: 20),
             ),
           ],
         ),
       ),
       body: Container(
+        padding: EdgeInsets.all(20.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Choose Department",style: TextStyle(fontSize: 30),),
+              Text(
+                "Choose Department",
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(height: 20),
               DropdownButton<String>(
-                value: dropdownvalue,
+                value: dropdownValue,
                 icon: Icon(Icons.keyboard_arrow_down),
+                isExpanded: true, // Enable dropdown expansion to fill available space horizontally
+                isDense: true, // Make the dropdown button compact
                 items: items.map((String item) {
                   return DropdownMenuItem<String>(
                     value: item,
@@ -82,7 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (String? newValue) {
                   if (newValue != null) {
                     setState(() {
-                      dropdownvalue = newValue;
+                      dropdownValue = newValue;
+                      if(newValue != 'Department') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => table()),
+                        );
+                      }
                     });
                   }
                 },
@@ -104,3 +118,22 @@ class _MyHomePageState extends State<MyHomePage> {
   String _formatDateTimeComponent(int component) {
     return component < 10 ? '0$component' : '$component';
   }
+}
+
+/*class SelectedDepartmentPage extends StatelessWidget {
+  final String selectedDept;
+
+  SelectedDepartmentPage({required this.selectedDept});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Selected Department'),
+      ),
+      body: Center(
+        child: Text('You selected: $selectedDept'),
+      ),
+    );
+  }
+}*/
