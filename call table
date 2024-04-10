@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ganesh/call.dart';
+import 'package:app/pages/call.dart';
 
 void main() {
-  runApp(table());
+  runApp(const table());
 }
 
 class table extends StatelessWidget {
@@ -39,39 +39,51 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            children: [
-              DataTable(
-                columnSpacing: 20,
-                columns: const [
-                  DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('Option 1')),
-                  DataColumn(label: Text('Option 2')),
-                ],
-                rows: const [
-                  DataRow(cells: [
-                    DataCell(Text('c123')),
-                    DataCell(Text('John Doe')),
-                    DataCell(MyButton('call')),
-                    DataCell(MyButton('call')),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('d123')),
-                    DataCell(Text('Jane Smith')),
-                    DataCell(MyButton('call')),
-                    DataCell(MyButton('call')),
-                  ]),
-                ],
-              ),
-            ],
-          ),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                DataTable(
+                  columnSpacing: 20,
+                  dataRowHeight: 110,
+                  columns: const [
+                    DataColumn(label: Text('ID')),
+                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('Option 1')),
+                    DataColumn(label: Text('Option 2')),
+                    DataColumn(
+                        label: Text('     Message')), // New column for buttons
+                  ],
+                  rows: const [
+                    DataRow(cells: [
+                      DataCell(Text('c123')),
+                      DataCell(Text('John Doe')),
+                      DataCell(MyButton('call')),
+                      DataCell(MyButton('call')),
+                      DataCell(
+                          MyButton('message')), // Button for sending message
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('d123')),
+                      DataCell(Text('Jane Smith')),
+                      DataCell(MyButton('call')),
+                      DataCell(MyButton('call')),
+                      DataCell(
+                          MyButton('message')), // Button for sending message
+                    ]),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -85,20 +97,17 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            // Navigate to another page here
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const call()),
-            );
-          },
-          child: Text(text),
-        ),
-        const SizedBox(height: 10), // Adjust the vertical spacing between cells
-      ],
+    return ElevatedButton(
+      onPressed: () {
+        if (text == 'call') {
+          // Navigate to call page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const call()),
+          );
+        }
+      },
+      child: Text(text),
     );
   }
 }
