@@ -36,7 +36,7 @@ class call extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
             onPressed: () async {
-              final maskedNumber = _maskPhoneNumber("+919944951049");
+              final maskedNumber = _maskPhoneNumber("+919984951049");
               final Uri url = Uri(
                 scheme: 'tel',
                 path: maskedNumber,
