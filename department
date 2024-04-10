@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ganesh/calltable.dart';
+import 'package:app/pages/table.dart';
 
 void main() {
   runApp(Dept());
@@ -28,7 +28,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String dropdownValue = 'Department';
 
-  var items = ['Department', 'OP1', 'OP2', 'Endoscopy', 'Ward/ICU', 'Prof Clinic'];
+  var items = [
+    'Department',
+    'OP1',
+    'OP2',
+    'Endoscopy',
+    'Ward/ICU',
+    'Prof Clinic'
+  ];
   late Timer _timer;
   late String currentTime;
 
@@ -79,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
               DropdownButton<String>(
                 value: dropdownValue,
                 icon: Icon(Icons.keyboard_arrow_down),
-                isExpanded: true, // Enable dropdown expansion to fill available space horizontally
+                isExpanded:
+                    true, // Enable dropdown expansion to fill available space horizontally
                 isDense: true, // Make the dropdown button compact
                 items: items.map((String item) {
                   return DropdownMenuItem<String>(
@@ -91,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (newValue != null) {
                     setState(() {
                       dropdownValue = newValue;
-                      if(newValue != 'Department') {
+                      if (newValue != 'Department') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => table()),
