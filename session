@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:math' as math;
-import 'package:ganesh/session.dart'; // Import the second Dart file
+import 'package:app/pages/dept.dart'; // Import the second Dart file
 
 void main() {
-  runApp(MyApp());
+  runApp(ses());
 }
 
-class MyApp extends StatelessWidget {
+class ses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -104,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => dept()),
+                    MaterialPageRoute(builder: (context) => Dept()),
                   );
                 },
                 child: Container(
@@ -127,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => dept()),
+                    MaterialPageRoute(builder: (context) => Dept()),
                   );
                 },
                 child: Container(
@@ -150,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => dept()),
+                    MaterialPageRoute(builder: (context) => Dept()),
                   );
                 },
                 child: Container(
@@ -173,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => dept()),
+                    MaterialPageRoute(builder: (context) => Dept()),
                   );
                 },
                 child: Container(
@@ -196,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => dept()),
+                    MaterialPageRoute(builder: (context) => Dept()),
                   );
                 },
                 child: Container(
