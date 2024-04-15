@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:app/pages/table.dart';
+import 'package:ganesh/calltable.dart';
 
 void main() {
   runApp(Dept());
@@ -27,17 +27,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String dropdownValue = 'Department';
-
-  var items = [
-    'Department',
-    'OP1',
-    'OP2',
-    'Endoscopy',
-    'Ward/ICU',
-    'Prof Clinic'
-  ];
+  var items = ['Department', 'OP1', 'OP2', 'Endoscopy', 'Ward/ICU', 'Prof Clinic'];
   late Timer _timer;
   late String currentTime;
+  TextEditingController searchController1 = TextEditingController();
+  TextEditingController searchController2 = TextEditingController();
+  bool departmentSelected = false; // Track whether department is selected
 
   @override
   void initState() {
@@ -79,16 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Choose Department",
+                "Connect To Doctor",
                 style: TextStyle(fontSize: 30),
               ),
               SizedBox(height: 20),
               DropdownButton<String>(
                 value: dropdownValue,
                 icon: Icon(Icons.keyboard_arrow_down),
-                isExpanded:
-                    true, // Enable dropdown expansion to fill available space horizontally
-                isDense: true, // Make the dropdown button compact
+                isExpanded: true,
+                isDense: true,
                 items: items.map((String item) {
                   return DropdownMenuItem<String>(
                     value: item,
@@ -99,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (newValue != null) {
                     setState(() {
                       dropdownValue = newValue;
+                      departmentSelected = newValue != 'Department'; // Set departmentSelected based on dropdown value
                       if (newValue != 'Department') {
                         Navigator.push(
                           context,
@@ -108,6 +103,53 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   }
                 },
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    "Search Rota by date:",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: InkWell(
+                      onTap: departmentSelected // Enable onTap only when department is selected
+                          ? () {
+                              _selectDate(context, searchController1);
+                            }
+                          : null,
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: searchController1,
+                          decoration: InputDecoration(
+                            hintText: "Choose date",
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    "Search doctor by name:",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      controller: searchController2,
+                      decoration: InputDecoration(
+                        hintText: "Enter name",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -126,22 +168,20 @@ class _MyHomePageState extends State<MyHomePage> {
   String _formatDateTimeComponent(int component) {
     return component < 10 ? '0$component' : '$component';
   }
+
+  _selectDate(BuildContext context, TextEditingController controller) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      setState(() {
+        controller.text = "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
 }
 
-/*class SelectedDepartmentPage extends StatelessWidget {
-  final String selectedDept;
 
-  SelectedDepartmentPage({required this.selectedDept});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Selected Department'),
-      ),
-      body: Center(
-        child: Text('You selected: $selectedDept'),
-      ),
-    );
-  }
-}*/
