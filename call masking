@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import url_launcher package
+import 'package:app/pages/table.dart';
 
 void main() {
   runApp(const call());
 }
-
 
 class call extends StatelessWidget {
   const call({Key? key}) : super(key: key);
@@ -15,28 +15,23 @@ class call extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('My App'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => table()),
+              );
+            },
+          ),
+          title: const Text('Call'),
           backgroundColor: Colors.blue,
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                // Handle search action
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                // Handle menu action
-              },
-            ),
-          ],
         ),
         body: Center(
           child: ElevatedButton(
             onPressed: () async {
-              final maskedNumber = _maskPhoneNumber("+919984951049");
+              final maskedNumber = _maskPhoneNumber("9876543210");
               final Uri url = Uri(
                 scheme: 'tel',
                 path: maskedNumber,
@@ -47,21 +42,13 @@ class call extends StatelessWidget {
             child: const Text('Call'), // Updated button text
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-            BottomNavigationBarItem(
-                label: 'Setting', icon: Icon(Icons.settings)),
-          ],
-        ),
       ),
     );
   }
 
-
   // Function to mask the phone number
   String _maskPhoneNumber(String phoneNumber) {
-    if (phoneNumber.length == 13) {
+    if (phoneNumber.length == 10) {
       return phoneNumber.replaceRange(3, 7, 'XXXX');
     } else {
       // If the phone number is not in the expected format, return as is
