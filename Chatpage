@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:app/pages/table.dart';
 
 void main() {
   runApp(msg());
@@ -13,7 +14,8 @@ class msg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Multimedia Chat',
+      debugShowCheckedModeBanner: false,
+      title: 'Chat Room',
       home: ChatScreen(),
     );
   }
@@ -94,7 +96,20 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Multimedia Chat'),
+        title: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => table()),
+                );
+              },
+            ),
+            Text('Multimedia Chat'),
+          ],
+        ),
       ),
       body: Column(
         children: <Widget>[
@@ -116,7 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-Widget _buildTextComposer(BuildContext context) {
+  Widget _buildTextComposer(BuildContext context) {
     return IconTheme(
       data: IconThemeData(color: Theme.of(context).primaryColorDark),
       child: Container(
@@ -172,7 +187,8 @@ class ChatMessage extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
-              child: Text(sender.substring(0, 1)), // Display first letter of sender's name
+              child: Text(sender.substring(
+                  0, 1)), // Display first letter of sender's name
             ),
           ),
           Expanded(
